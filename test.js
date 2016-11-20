@@ -11,7 +11,7 @@ var socket = io.connect(server_url + ':' + port, {
 
 socket.on('connect', function(){
 	console.log('connected');
-    socket.emit('join', deviceId);
+    socket.emit('raspberrypi-join', deviceId);
 });
 
 
