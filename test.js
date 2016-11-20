@@ -33,6 +33,10 @@ setInterval(function(){
 
 
 
+
+
+
+
 function imageUpload() {
 	// 이미지 파일을 라즈베리파이에서 만들어낸다...
 
@@ -49,7 +53,7 @@ imageUpload();
 
 setInterval(function() {
 	imageUpload();	
-}, 5000);
+}, 1000*60*60*24);
 
 
 // 1000*60*60*24
