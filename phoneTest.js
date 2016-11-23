@@ -12,7 +12,7 @@ var socket = io.connect(server_url + ':' + port, {
 socket.on('connect', function(){
 	console.log('connected');
     socket.emit('phone-join', 'kwonssy02');
-    socket.emit('phone-socket', deviceId);
+    //socket.emit('phone-socket', deviceId);
     socket.emit('waterNow', deviceId);
 });
 
