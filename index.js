@@ -84,11 +84,16 @@ function imageUpload() {
 	// 이미지 파일을 라즈베리파이에서 만들어낸다...
 
 	if(socket.connected) {
-		fs.readFile('image.png', function(err, buf){
-	    	// it's possible to embed binary data
-	    	// within arbitrarily-complex objects
-	    	socket.emit('image', { image: true, buffer: buf });
-	  	});
+		exec_photo(cmd_photo, function(error, stdout, stderr){
+			console.log('Photo Saved : ', photo_path);
+			fs.readFile(photo_path, function(err, buf){
+		    	// it's possible to embed binary data
+		    	// within arbitrarily-complex objects
+		    	socket.emit('image', { image: true, buffer: buf });
+		  	});
+		});
+
+		
 	}
 }
 
@@ -96,7 +101,7 @@ imageUpload();
 
 setInterval(function() {
 	imageUpload();	
-}, 1000*60*60*24);
+}, 5000);
 
 
 // 1000*60*60*24
