@@ -85,6 +85,9 @@ function imageUpload() {
 
 	if(socket.connected) {
 		exec_photo(cmd_photo, function(error, stdout, stderr){
+			if(error) {
+				console.log(error);
+			}
 			console.log('Photo Saved : ', photo_path);
 			fs.readFile(photo_path, function(err, buf){
 		    	// it's possible to embed binary data
