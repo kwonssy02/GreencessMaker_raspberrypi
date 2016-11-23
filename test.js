@@ -1,6 +1,6 @@
 const deviceId = 1;
-// const server_url = 'http://localhost';
-const server_url = 'http://ec2-52-78-120-48.ap-northeast-2.compute.amazonaws.com';
+const server_url = 'http://localhost';
+// const server_url = 'http://ec2-52-78-120-48.ap-northeast-2.compute.amazonaws.com';
 const port = 8081;
 
 var fs = require('fs');
@@ -13,6 +13,10 @@ var socket = io.connect(server_url + ':' + port, {
 socket.on('connect', function(){
 	console.log('connected');
     socket.emit('raspberrypi-join', deviceId);
+});
+
+socket.on('waterNowDevice', function() {
+	console.log('WATER!!!!!!!!!!');
 });
 
 

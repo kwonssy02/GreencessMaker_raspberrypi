@@ -1,7 +1,9 @@
 const deviceId = 2;
 const server_url = 'http://localhost';
+// const server_url = 'http://ec2-52-78-120-48.ap-northeast-2.compute.amazonaws.com';
 const port = 8081;
 
+var fs = require('fs');
 var io = require('socket.io-client');
 var socket = io.connect(server_url + ':' + port, {
 	'reconnection': true,
@@ -10,7 +12,11 @@ var socket = io.connect(server_url + ':' + port, {
 
 socket.on('connect', function(){
 	console.log('connected');
-    socket.emit('join', deviceId);
+    socket.emit('raspberrypi-join', deviceId);
+});
+
+socket.on('waterNowDevice', function() {
+	console.log('WATER!!!!!!!!!!');
 });
 
 
@@ -29,3 +35,30 @@ setInterval(function(){
 		socket.emit('updateDeviceInfo', deviceInfo);
 	}
 }, 5000);
+
+
+
+
+
+
+
+function imageUpload() {
+	// 이미지 파일을 라즈베리파이에서 만들어낸다...
+
+	if(socket.connected) {
+		fs.readFile('image.png', function(err, buf){
+	    	// it's possible to embed binary data
+	    	// within arbitrarily-complex objects
+	    	socket.emit('image', { image: true, buffer: buf });
+	  	});
+	}
+}
+
+imageUpload();
+
+setInterval(function() {
+	imageUpload();	
+}, 1000*60*60*24);
+
+
+// 1000*60*60*24
