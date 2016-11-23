@@ -20,6 +20,7 @@ var sensor = {
 		//setTimeout(sensor.read(),500);	// continued fuction
 	}
 };
+sensor.initialize();
 
 var exec_photo = require('child_process').exec;
 var photo_path = __dirname+"/photo/img.jpg";
@@ -67,7 +68,7 @@ setInterval(function(){
 		deviceInfo["humidity"] = sensorLib.read().humidity.toFixed(2);
 		deviceInfo["light"] = 0;
 		deviceInfo["waterHeight"] = 0;
-		
+
 		console.log(deviceInfo);
 		socket.emit('updateDeviceInfo', deviceInfo);
 	}
@@ -91,7 +92,7 @@ function imageUpload() {
 	}
 }
 
-// imageUpload();
+imageUpload();
 
 setInterval(function() {
 	imageUpload();	
