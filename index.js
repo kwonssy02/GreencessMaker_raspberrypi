@@ -104,12 +104,10 @@ function imageUpload() {
 		fs.readFile(photo_path, function(err, buf){
 			if(err) 
 				console.log(err);
-			console.log('aaaaaaaaaaaaaaaaaaaaaa');
 	    	// it's possible to embed binary data
 	    	// within arbitrarily-complex objects
-	    	console.log('before!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 	    	socket.emit('image', { image: true, buffer: buf });
-	    	console.log('emitted!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+	    	
 	  	});
 
 		
