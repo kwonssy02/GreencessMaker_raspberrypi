@@ -6,6 +6,7 @@ const port = 8081;
 var fs = require('fs');
 var io = require('socket.io-client');
 var gpio = require('rpi-gpio');
+var RaspiCam = require('raspicam');
 var sensorLib = require('node-dht-sensor');
 var sensor = {
 	initialize : function(){
@@ -22,9 +23,9 @@ var sensor = {
 };
 sensor.initialize();
 
-var exec_photo = require('child_process').exec;
+
 var photo_path = __dirname+"/photo/img.jpg";
-var cmd_photo = 'raspistill -o '+photo_path;
+
 
 gpio.on('change', function(channel, value) {
 	if(value ==1){
@@ -78,16 +79,29 @@ setInterval(function(){
 
 
 
+var encoding = 'png';
+var currTime = new Date().getTime();		
+var pictureFilename = photo_path + encoding;
 
+var opts = {
+	mode : 'photo',
+	encoding : encoding,
+	quality : 10,
+	width : 250,
+	height : 250,
+	output : pictureFilename,
+	timeout : 1
+};
+
+var camera = new RaspiCam(opts);
 
 function imageUpload() {
 	// 이미지 파일을 라즈베리파이에서 만들어낸다...
 
 	if(socket.connected) {
-		exec_photo(cmd_photo, function(error, stdout, stderr){
-			if(error) {
-				console.log(error);
-			}
+		// camera fuction
+		currTime = new Date().getTime();
+		var process_id = camera.start(opts, function() {
 			console.log('Photo Saved : ', photo_path);
 			fs.readFile(photo_path, function(err, buf){
 		    	// it's possible to embed binary data
