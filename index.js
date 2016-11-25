@@ -24,9 +24,6 @@ var sensor = {
 sensor.initialize();
 
 
-var photo_path = __dirname+"/photo/img.jpg";
-
-
 gpio.on('change', function(channel, value) {
 	if(value ==1){
 		
@@ -78,7 +75,7 @@ setInterval(function(){
 
 
 
-
+var photo_path = __dirname+"/photo/img.";
 var encoding = 'jpg';
 var currTime = new Date().getTime();		
 var pictureFilename = photo_path + encoding;
@@ -102,7 +99,9 @@ function imageUpload() {
 		// camera fuction
 		currTime = new Date().getTime();
 		var process_id = camera.start(opts);
+
 		console.log('Photo Saved : ', photo_path);
+
 		fs.readFile(photo_path, function(err, buf){
 			if(err) 
 				console.log(err);
