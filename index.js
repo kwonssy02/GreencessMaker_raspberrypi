@@ -75,14 +75,13 @@ setInterval(function(){
 
 
 
-var photo_path = __dirname+"/photo/img.";
-var encoding = 'jpg';
+var photo_path = __dirname+"/photo/img.jpg";
 var currTime = new Date().getTime();		
-var pictureFilename = photo_path + encoding;
+var pictureFilename = photo_path;
 
 var opts = {
 	mode : 'photo',
-	encoding : encoding,
+	encoding : 'jpg',
 	quality : 10,
 	width : 250,
 	height : 250,
