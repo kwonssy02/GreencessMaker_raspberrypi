@@ -6,12 +6,12 @@
 
 ## Installation
 
-'''console
+```console
 npm install
-'''
+```
 
 ## To run
 
-'''console
+```console
 sudo node index.js
-'''
+```
