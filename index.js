@@ -101,14 +101,13 @@ function imageUpload() {
 	if(socket.connected) {
 		// camera fuction
 		currTime = new Date().getTime();
-		var process_id = camera.start(opts, function() {
-			console.log('Photo Saved : ', photo_path);
-			fs.readFile(photo_path, function(err, buf){
-		    	// it's possible to embed binary data
-		    	// within arbitrarily-complex objects
-		    	socket.emit('image', { image: true, buffer: buf });
-		  	});
-		});
+		var process_id = camera.start(opts);
+		console.log('Photo Saved : ', photo_path);
+		fs.readFile(photo_path, function(err, buf){
+	    	// it's possible to embed binary data
+	    	// within arbitrarily-complex objects
+	    	socket.emit('image', { image: true, buffer: buf });
+	  	});
 
 		
 	}
