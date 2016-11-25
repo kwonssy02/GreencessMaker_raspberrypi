@@ -79,7 +79,7 @@ setInterval(function(){
 
 
 
-var encoding = 'png';
+var encoding = 'jpg';
 var currTime = new Date().getTime();		
 var pictureFilename = photo_path + encoding;
 
@@ -104,6 +104,9 @@ function imageUpload() {
 		var process_id = camera.start(opts);
 		console.log('Photo Saved : ', photo_path);
 		fs.readFile(photo_path, function(err, buf){
+			if(err) 
+				console.log(err);
+			console.log('aaaaaaaaaaaaaaaaaaaaaa');
 	    	// it's possible to embed binary data
 	    	// within arbitrarily-complex objects
 	    	socket.emit('image', { image: true, buffer: buf });
