@@ -140,7 +140,7 @@ function imageUpload() {
 		currTime = new Date().getTime();
 		var process_id = camera.start(opts);
 
-		camera.on("read", function(err, filename){ 
+		camera.on("exited", function(){ 
 			console.log('Photo Saved : ', photo_path);
 
 			fs.readFile(photo_path, function(err, buf){
