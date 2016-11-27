@@ -13,6 +13,12 @@ npm install raspicam
 npm install node-dht-sensor
 ```
 
+## Setting 파일 생성
+```console
+cp setting_sample.json setting.json
+```
+생성 후 setting.json 내 변수를 수정한다.
+
 ## To run
 gpio에 접근하기 위해서 root 권한이 필요하기 때문에 sudo를 사용합니다.
 ```console

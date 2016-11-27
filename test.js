@@ -1,9 +1,10 @@
 const deviceId = 1;
-// const server_url = 'http://localhost';
-const server_url = 'http://ec2-52-78-120-48.ap-northeast-2.compute.amazonaws.com';
+const setting = require('./setting.json');
+const fs = require('fs');
+const server_url = setting.server_url;
+// const server_url = 'http://ec2-52-78-120-48.ap-northeast-2.compute.amazonaws.com';
 const port = 8081;
 
-var fs = require('fs');
 var io = require('socket.io-client');
 var socket = io.connect(server_url + ':' + port, {
 	'reconnection': true,
@@ -13,11 +14,21 @@ var socket = io.connect(server_url + ':' + port, {
 socket.on('connect', function(){
 	console.log('connected');
     socket.emit('raspberrypi-join', deviceId);
+    socket.emit('requestWateringInfo', deviceId);
 });
 
 socket.on('waterNowDevice', function() {
 	console.log('WATER!!!!!!!!!!');
 });
+
+socket.on('respondWateringInfo', function(wateringInfo) {
+	console.log(wateringInfo);
+	console.log('mon: ' + wateringInfo["mon"]);
+	
+	setting["mon"] = 1;
+	saveSetting(setting);
+});
+
 
 
 var i = 1;
@@ -59,6 +70,18 @@ imageUpload();
 setInterval(function() {
 	imageUpload();	
 }, 1000*60*60*24);
+
+
+function saveSetting(jsonSetting) {
+	
+	fs.writeFile("./setting.json", JSON.stringify(jsonSetting), function(err) {
+	    if(err) {
+	      return console.log(err);
+	    }
+	 
+	    console.log("The file is saved successfully");
+  });
+}
 
 
 // 1000*60*60*24
