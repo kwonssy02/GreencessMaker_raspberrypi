@@ -123,11 +123,11 @@ var pictureFilename = photo_path;
 var opts = {
 	mode : 'photo',
 	encoding : 'jpg',
-	quality : 100,
+	quality : 80,
 	width : 640,
 	height : 480,
-	output : pictureFilename
-	// timeout : 1
+	output : pictureFilename,
+	timeout : 1
 };
 
 var camera = new RaspiCam(opts);
@@ -140,7 +140,7 @@ function imageUpload() {
 		currTime = new Date().getTime();
 		var process_id = camera.start(opts);
 
-		camera.on("started", function(){ 
+		camera.on("read", function(){ 
 			console.log('Photo Saved : ', photo_path);
 
 			fs.readFile(photo_path, function(err, buf){
