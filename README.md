@@ -14,6 +14,7 @@ npm install node-dht-sensor
 ## Setting 파일 생성
 ```console
 cp setting_sample.json setting.json
+cp wateringInfo_sample.json wateringInfo.json
 ```
 생성 후 setting.json 내 변수를 수정한다.
 
