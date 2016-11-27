@@ -151,6 +151,8 @@ function imageUpload() {
 	  	});
 
 		
+	}else {
+		console.log('!!!!!!!! Socket 연결 안됐음!!!!!!1');
 	}
 }
 
