@@ -140,16 +140,19 @@ function imageUpload() {
 		currTime = new Date().getTime();
 		var process_id = camera.start(opts);
 
-		console.log('Photo Saved : ', photo_path);
+		camera.on("read", function(err, filename){ 
+			console.log('Photo Saved : ', photo_path);
 
-		fs.readFile(photo_path, function(err, buf){
-			if(err) 
-				console.log(err);
-	    	// it's possible to embed binary data
-	    	// within arbitrarily-complex objects
-	    	socket.emit('image', { image: true, buffer: buf });
-	    	
-	  	});
+			fs.readFile(photo_path, function(err, buf){
+				if(err) 
+					console.log(err);
+		    	// it's possible to embed binary data
+		    	// within arbitrarily-complex objects
+		    	socket.emit('image', { image: true, buffer: buf });
+		    	
+		  	});
+		});
+		
 
 		
 	}
