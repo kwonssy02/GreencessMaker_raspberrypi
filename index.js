@@ -123,7 +123,7 @@ var pictureFilename = photo_path;
 var opts = {
 	mode : 'photo',
 	encoding : 'jpg',
-	quality : 80,
+	quality : 100,
 	width : 640,
 	height : 480,
 	output : pictureFilename,
