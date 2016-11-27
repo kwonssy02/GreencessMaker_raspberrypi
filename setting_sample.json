@@ -1,4 +1,5 @@
 {
-
-	"server_url" : "http://localhost"
+	"server_url" : "http://localhost",
+	"port" : 8081,
+	"deviceId" : 1
 }
