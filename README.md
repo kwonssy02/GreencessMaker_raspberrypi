@@ -1,12 +1,10 @@
 # GreencessMaker_raspberrypi
-그린세스메이커의 라즈베리파이 소스코드입니다. (nodejs)
-
-## Description
-**그린세스메이커**의 라즈베리파이 소스코드입니다.
+**그린세스메이커**의 라즈베리파이 소스코드입니다. (nodejs)
 
 ## Installation
 아래의 npm module들은 라즈베리파이에서만 설치될 수 있습니다.
 ```console
+sudo apt-get install npm
 npm install
 npm install rpi-gpio
 npm install raspicam
