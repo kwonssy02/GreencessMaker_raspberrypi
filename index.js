@@ -123,11 +123,11 @@ var pictureFilename = photo_path;
 var opts = {
 	mode : 'photo',
 	encoding : 'jpg',
-	quality : 10,
-	width : 250,
-	height : 250,
-	output : pictureFilename,
-	timeout : 1
+	quality : 100,
+	width : 640,
+	height : 480,
+	output : pictureFilename
+	// timeout : 1
 };
 
 var camera = new RaspiCam(opts);
