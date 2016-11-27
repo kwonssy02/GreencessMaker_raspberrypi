@@ -158,7 +158,7 @@ function imageUpload() {
 	}
 }
 
-imageUpload();
+// imageUpload();
 
 setInterval(function() {
 	imageUpload();	
