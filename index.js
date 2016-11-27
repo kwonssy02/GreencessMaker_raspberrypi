@@ -133,7 +133,8 @@ var camera = new RaspiCam(opts);
 
 function imageUpload() {
 	// 이미지 파일을 라즈베리파이에서 만들어낸다...
-
+	console.log('imageUpload!!!!!!!!!!!!!!!!!!!!!!');
+	
 	if(socket.connected) {
 		// camera fuction
 		currTime = new Date().getTime();
