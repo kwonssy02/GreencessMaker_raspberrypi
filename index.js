@@ -55,6 +55,7 @@ socket.on('connect', function(){
 	console.log('connected');
     socket.emit('raspberrypi-join', deviceId);
     socket.emit('requestWateringInfo', deviceId);
+    imageUpload();
 });
 
 socket.on('waterNowDevice', function() {
@@ -133,8 +134,7 @@ var camera = new RaspiCam(opts);
 
 function imageUpload() {
 	// 이미지 파일을 라즈베리파이에서 만들어낸다...
-	console.log('imageUpload!!!!!!!!!!!!!!!!!!!!!!');
-	
+
 	if(socket.connected) {
 		// camera fuction
 		currTime = new Date().getTime();
@@ -152,8 +152,6 @@ function imageUpload() {
 	  	});
 
 		
-	}else {
-		console.log('!!!!!!!! Socket 연결 안됐음!!!!!!1');
 	}
 }
 
