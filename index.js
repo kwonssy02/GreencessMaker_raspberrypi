@@ -26,7 +26,7 @@ var sensor = {
 sensor.initialize();
 
 
-
+// 센서값이 변경되었을 때..?
 gpio.on('change', function(channel, value) {
 	if(value ==1){
 		
@@ -45,7 +45,7 @@ gpio.setup(11, gpio.DIR_IN, gpio.EDGE_BOTH);
 
 
 
-
+// 소켓을 연결한다. 커넥트되지 않았을 때 5초에 한번씩 재연결 요청.
 var socket = io.connect(server_url + ':' + port, {
 	'reconnection': true,
     'reconnectionDelay': 5000
@@ -126,8 +126,8 @@ var opts = {
 	quality : 100,
 	width : 640,
 	height : 480,
-	output : pictureFilename,
-	timeout : 1
+	output : pictureFilename
+	// timeout : 1
 };
 
 var camera = new RaspiCam(opts);
