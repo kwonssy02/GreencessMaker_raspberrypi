@@ -45,8 +45,8 @@ var Gpio =require('pigpio').Gpio;
 
 var led = new Gpio(23, {mode: Gpio.OUTPUT});
 
-var brightness = 100;
-led.pwmWrite(brightness);
+// var brightness = 0;
+
 
 /*
 //	blink led
@@ -100,27 +100,14 @@ gpio.setup(buttonPin, gpio.dir_in, function() {
 });
 
 function triggerWatering(time) {
-	var blinkFlag = true;
-	var blinkInterval = setInterval(function() {
-		if(blinkFlag) {
-			var i=0;
-			brightness = Math.sin(((Date.now()/16)+(i*5))*0.2)*0.5 + 0.5;
-			brightness *= brightness*brightness;
-			brightness = Math.floor(brightness*255);
-			led.pwmWrite(brightness);
-		}else {
-			clearInterval(blinkInterval);
-			brightness = 100;
-			led.pwmWrite(brightness);
-		}
-	},16);
-
+	
+	led.pwmWrite(100);
 	console.log('water start!!!!!');
 	gpio.write(waterPin, false, function(err, value) {
 		sleep(time, function() {
 			gpio.write(waterPin, true, function(err, value){
 				console.log('water finish!!!!!');	
-				blinkFlag = false;
+				led.pwmWrite(0);
 			});
 		});
 	});
