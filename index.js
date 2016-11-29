@@ -41,9 +41,72 @@ gpio.on('change', function(channel, value) {
 	}
 });
 
-gpio.setup(11, gpio.DIR_IN, gpio.EDGE_BOTH);
+var Gpio =require('pigpio').Gpio;
+
+var led = new Gpio(23, {mode: Gpio.OUTPUT});
+
+var brightness = 100;
+led.pwmWrite(brightness);
+
+/*
+//	blink led
+setInterval(loop,16);
+function loop(){
+	var i=0;
+	brightness = Math.sin(((Date.now()/16)+(i*5))*0.2)*0.5 + 0.5;
+	brightness *= brightness*brightness;
+	brightness = Math.floor(brightness*255);
+	led.pwmWrite(brightness);
+}
+*/
 
 
+const waterPin = 15;
+const buttonPin = 11;
+
+gpio.setup(waterPin, gpio.DIR_OUT, function(err, value) {
+	console.log(err);
+	gpio.write(waterPin, true, function(err, value) {
+		// console.log('water motor set to TRUE');
+	});
+});
+
+
+var lastVal = false; 
+
+gpio.setup(buttonPin, gpio.dir_in, function() {
+	setInterval(function() {
+		gpio.read(buttonPin, function(err, value) {
+			if(lastVal == false && value == true) {
+				/*
+				console.log('button clicked!!!!!!');
+				gpio.write(waterPin, false, function(err, value) {
+					console.log('watering!!!!!');
+				});
+				*/
+
+				gpio.write(waterPin, false, function(err, value) {
+					sleep(1000, function() {
+						gpio.write(waterPin, true, function(err, value){
+							console.log('water finish!!!!!');	
+						});
+					});
+				});
+			}
+			lastVal = value;
+		});
+	});
+});
+
+
+
+function sleep(time, callback) {
+    var stop = new Date().getTime();
+    while(new Date().getTime() < stop + time) {
+        ;
+    }
+    callback();
+}
 
 // 소켓을 연결한다. 커넥트되지 않았을 때 5초에 한번씩 재연결 요청.
 var socket = io.connect(server_url + ':' + port, {
@@ -59,7 +122,13 @@ socket.on('connect', function(){
 });
 
 socket.on('waterNowDevice', function() {
-	console.log('WATER!!!!!!!!!!');
+	gpio.write(waterPin, false, function(err, value) {
+		sleep(1000, function() {
+			gpio.write(waterPin, true, function(err, value){
+				console.log('water finish!!!!!');	
+			});
+		});
+	});
 });
 
 socket.on('respondWateringInfo', function(data) {
@@ -221,7 +290,13 @@ var time = {
 								lastHour = nowHour;
 								lastMinute = nowMinute;
 								console.log('Alarm!!!! : '+ nowDate + ' ' + nowHour + ':' + nowMinute);
-
+								gpio.write(waterPin, false, function(err, value) {
+									sleep(1000, function() {
+										gpio.write(waterPin, true, function(err, value){
+											console.log('water finish!!!!!');	
+										});
+									});
+								});
 							}
 		
 						}
