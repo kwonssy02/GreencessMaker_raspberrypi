@@ -50,14 +50,21 @@ led.pwmWrite(brightness);
 
 /*
 //	blink led
-setInterval(loop,16);
-function loop(){
+
+var blinkFlag = true;
+var blinkInterval = setInterval(function() {
+	if(blinkFalg) {
 	var i=0;
-	brightness = Math.sin(((Date.now()/16)+(i*5))*0.2)*0.5 + 0.5;
-	brightness *= brightness*brightness;
-	brightness = Math.floor(brightness*255);
-	led.pwmWrite(brightness);
-}
+		brightness = Math.sin(((Date.now()/16)+(i*5))*0.2)*0.5 + 0.5;
+		brightness *= brightness*brightness;
+		brightness = Math.floor(brightness*255);
+		led.pwmWrite(brightness);
+	}else {
+		clearInterval(blinkInterval);
+		brightness = 100;
+		led.pwmWrite(brightness);
+	}
+},16);
 */
 
 
@@ -84,21 +91,38 @@ gpio.setup(buttonPin, gpio.dir_in, function() {
 					console.log('watering!!!!!');
 				});
 				*/
-
-				gpio.write(waterPin, false, function(err, value) {
-					sleep(3000, function() {
-						gpio.write(waterPin, true, function(err, value){
-							console.log('water finish!!!!!');	
-						});
-					});
-				});
+				triggerWatering(3000);
 			}
 			lastVal = value;
 		});
 	});
 });
 
+function triggerWatering(time) {
+	var blinkFlag = true;
+	var blinkInterval = setInterval(function() {
+		if(blinkFlag) {
+		var i=0;
+			brightness = Math.sin(((Date.now()/16)+(i*5))*0.2)*0.5 + 0.5;
+			brightness *= brightness*brightness;
+			brightness = Math.floor(brightness*255);
+			led.pwmWrite(brightness);
+		}else {
+			clearInterval(blinkInterval);
+			brightness = 100;
+			led.pwmWrite(brightness);
+		}
+	},16);
 
+	gpio.write(waterPin, false, function(err, value) {
+		sleep(time, function() {
+			gpio.write(waterPin, true, function(err, value){
+				console.log('water finish!!!!!');	
+				blinkFlag = false;
+			});
+		});
+	});
+}
 
 function sleep(time, callback) {
     var stop = new Date().getTime();
@@ -122,13 +146,7 @@ socket.on('connect', function(){
 });
 
 socket.on('waterNowDevice', function() {
-	gpio.write(waterPin, false, function(err, value) {
-		sleep(3000, function() {
-			gpio.write(waterPin, true, function(err, value){
-				console.log('water finish!!!!!');	
-			});
-		});
-	});
+	triggerWatering(3000);
 });
 
 socket.on('respondWateringInfo', function(data) {
@@ -290,13 +308,7 @@ var time = {
 								lastHour = nowHour;
 								lastMinute = nowMinute;
 								console.log('Alarm!!!! : '+ nowDate + ' ' + nowHour + ':' + nowMinute);
-								gpio.write(waterPin, false, function(err, value) {
-									sleep(3000, function() {
-										gpio.write(waterPin, true, function(err, value){
-											console.log('water finish!!!!!');	
-										});
-									});
-								});
+								triggerWatering(3000);
 							}
 		
 						}
