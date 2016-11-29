@@ -132,7 +132,7 @@ socket.on('waterNowDevice', function() {
 });
 
 socket.on('respondWateringInfo', function(data) {
-	console.log(data);
+	// console.log(data);
 	
 	wateringInfo["mon"] = data["mon"];
 	wateringInfo["tue"] = data["tue"];
@@ -150,7 +150,7 @@ socket.on('respondWateringInfo', function(data) {
 });
 
 socket.on('updateWateringInfo', function(data) {
-	console.log('updateWateringInfo!!!!');
+	// console.log('updateWateringInfo!!!!');
 	
 	wateringInfo["mon"] = data["mon"];
 	wateringInfo["tue"] = data["tue"];
@@ -177,7 +177,7 @@ setInterval(function(){
 		deviceInfo["light"] = 0;
 		deviceInfo["waterHeight"] = 0;
 
-		console.log(deviceInfo);
+		// console.log(deviceInfo);
 		socket.emit('updateDeviceInfo', deviceInfo);
 	}
 }, 5000);
@@ -279,13 +279,13 @@ var time = {
 
 			var nowHour = t.getHours();
 			var nowMinute = t.getMinutes();
-			console.log('Now : '+ nowDate + ' ' + nowHour + ':' + nowMinute);
+			// console.log('Now : '+ nowDate + ' ' + nowHour + ':' + nowMinute);
 			if(wateringInfo.status == 1) {
 				if(!(lastDate==nowDate && lastHour==nowHour && lastMinute==nowMinute)){
 					if(wateringInfo[nowDate] == 1){
 						if(nowHour == wateringInfo["hour"]){
 							if(nowMinute == wateringInfo["minute"]){
-								console.log('minute : ' + nowMinute);
+								// console.log('minute : ' + nowMinute);
 								lastDate = nowDate;
 								lastHour = nowHour;
 								lastMinute = nowMinute;
