@@ -85,8 +85,9 @@ gpio.setup(buttonPin, gpio.dir_in, function() {
 	setInterval(function() {
 		gpio.read(buttonPin, function(err, value) {
 			if(lastVal == false && value == true) {
-				/*
+				
 				console.log('button clicked!!!!!!');
+				/*
 				gpio.write(waterPin, false, function(err, value) {
 					console.log('watering!!!!!');
 				});
@@ -102,7 +103,7 @@ function triggerWatering(time) {
 	var blinkFlag = true;
 	var blinkInterval = setInterval(function() {
 		if(blinkFlag) {
-		var i=0;
+			var i=0;
 			brightness = Math.sin(((Date.now()/16)+(i*5))*0.2)*0.5 + 0.5;
 			brightness *= brightness*brightness;
 			brightness = Math.floor(brightness*255);
@@ -114,6 +115,7 @@ function triggerWatering(time) {
 		}
 	},16);
 
+	console.log('water start!!!!!');
 	gpio.write(waterPin, false, function(err, value) {
 		sleep(time, function() {
 			gpio.write(waterPin, true, function(err, value){
