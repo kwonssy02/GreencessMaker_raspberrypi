@@ -86,7 +86,7 @@ gpio.setup(buttonPin, gpio.dir_in, function() {
 				*/
 
 				gpio.write(waterPin, false, function(err, value) {
-					sleep(1000, function() {
+					sleep(3000, function() {
 						gpio.write(waterPin, true, function(err, value){
 							console.log('water finish!!!!!');	
 						});
@@ -123,7 +123,7 @@ socket.on('connect', function(){
 
 socket.on('waterNowDevice', function() {
 	gpio.write(waterPin, false, function(err, value) {
-		sleep(1000, function() {
+		sleep(3000, function() {
 			gpio.write(waterPin, true, function(err, value){
 				console.log('water finish!!!!!');	
 			});
@@ -291,7 +291,7 @@ var time = {
 								lastMinute = nowMinute;
 								console.log('Alarm!!!! : '+ nowDate + ' ' + nowHour + ':' + nowMinute);
 								gpio.write(waterPin, false, function(err, value) {
-									sleep(1000, function() {
+									sleep(3000, function() {
 										gpio.write(waterPin, true, function(err, value){
 											console.log('water finish!!!!!');	
 										});
