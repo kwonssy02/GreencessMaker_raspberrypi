@@ -131,7 +131,7 @@ socket.on('connect', function(){
 	console.log('connected');
     socket.emit('raspberrypi-join', deviceId);
     socket.emit('requestWateringInfo', deviceId);
-    imageUpload();
+    // imageUpload();
 });
 
 socket.on('waterNowDevice', function() {
